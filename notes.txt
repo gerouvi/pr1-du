@@ -1,0 +1,7 @@
+npx i -D json-server
+
+crear en package.json -> "server": "json-server ./users.json -p 4000"
+
+npm run server
+
+thunder --> http://localhost:4000/users/c3ce080a-88ee-4b1c-b88e-e7070b1365e6 
