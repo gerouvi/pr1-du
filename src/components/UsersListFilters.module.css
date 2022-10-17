@@ -1,0 +1,20 @@
+.form{
+    margin: 1.5rem 0;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1rem;
+}
+
+.active{
+    display: flex;
+    align-items: center;
+}
+
+.checkbox{
+    margin-right: .75rem;
+}

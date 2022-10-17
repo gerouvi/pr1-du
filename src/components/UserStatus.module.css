@@ -1,0 +1,19 @@
+.icon{
+    width: 1rem;
+    height: 1rem;
+    margin-right: .25rem;
+}
+
+.active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--text-sm);
+}
+
+.active{
+    color: var(--color-green);
+}
+.inactive{
+    color: var(--color-red);
+}
