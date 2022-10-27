@@ -1,8 +1,8 @@
 import UserRow from './UserRow';
 
-const UsersListRows = ({ users, error, loading }) => {
-	if (loading) return <p>Cargando...</p>;
-	if (error) return <p>Error al cargar los usuarios</p>;
+const UsersListRows = ({ users, usersError, usersLoading }) => {
+	if (usersLoading) return <p>Cargando...</p>;
+	if (usersError) return <p>Error al cargar los usuarios</p>;
 	if (!users.length) return <p>No hay usuarios</p>;
 
 	return users.map(user => <UserRow key={user.id} {...user} />);

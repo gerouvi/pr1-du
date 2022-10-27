@@ -55,13 +55,24 @@ const useFilters = () => {
 		}));
 	};
 
+	const resetFilters = () => {
+		setFilters(prev => ({
+			search: '',
+			onlyActives: false,
+			sortBy: SORT_OPTIONS.DEFAULT,
+			page: 1,
+			itemsPerPage: prev.itemsPerPage
+		}));
+	};
+
 	return {
 		filters,
 		setSearch,
 		setOnlyActives,
 		setSortBy,
 		setPage,
-		setItemsPerPage
+		setItemsPerPage,
+		resetFilters
 	};
 };
 
