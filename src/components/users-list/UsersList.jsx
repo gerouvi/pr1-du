@@ -1,12 +1,13 @@
 import UsersListRows from './UsersListRows';
 import style from './UsersList.module.css';
 import UsersListFilters from './UsersListFilters';
-import useFilters from '../lib/hooks/UseFilters';
+import useFilters from '../../lib/hooks/UseFilters';
+
+import { useUsers } from '../../lib/hooks/useUsers';
+import { getUsersToDisplay } from '../../lib/users/filterUsers';
+import UsersFormLayout from '../user-forms/UsersFormContainer';
+import UsersFormsProvider from '../providers/UsersFormProvider';
 import UsersListPagination from './UsersListPagination';
-import { useUsers } from '../lib/hooks/useUsers';
-import { getUsersToDisplay } from '../lib/users/filterUsers';
-import UsersFormLayout from './user-forms/UsersFormContainer';
-import UsersFormsProvider from './providers/UsersFormProvider';
 
 const UsersList = () => {
 	const {
