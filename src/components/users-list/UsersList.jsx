@@ -8,8 +8,11 @@ import { getUsersToDisplay } from '../../lib/users/filterUsers';
 import UsersFormLayout from '../user-forms/UsersFormContainer';
 import UsersFormsProvider from '../providers/UsersFormProvider';
 import UsersListPagination from './UsersListPagination';
+import UsersListViewSelector from './UsersListViewSelector';
+import { useState } from 'react';
 
 const UsersList = () => {
+	const [view, setView] = useState(true);
 	const {
 		filters,
 		setSearch,
@@ -36,12 +39,14 @@ const UsersList = () => {
 					setOnlyActives={setOnlyActives}
 					setSortBy={setSortBy}
 				/>
+				<UsersListViewSelector view={view} setView={setView} />
 				<UsersFormLayout />
 
 				<UsersListRows
 					users={paginatedUsers}
 					usersError={usersError}
 					usersLoading={usersLoading}
+					view={view}
 				/>
 			</UsersFormsProvider>
 			<UsersListPagination
