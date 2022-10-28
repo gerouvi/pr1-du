@@ -15,7 +15,8 @@ import {
 	sortUsers
 } from '../lib/users/filterUsers';
 import UsersFormLayout from './user-forms/UsersFormLayout';
-import UseEditForm from './user-forms/UserEditForm';
+import UserEditForm from './user-forms/UserEditForm';
+import UserDeleteForm from './user-forms/UserDeleteForm';
 
 const UsersList = () => {
 	const {
@@ -66,7 +67,14 @@ const UsersList = () => {
 						<UserCreateForm onSuccess={onSuccess} />
 					)}
 					{currentForm === USERS_FORMS.EDIT && (
-						<UseEditForm onSuccess={onSuccess} user={currentUser} />
+						<UserEditForm onSuccess={onSuccess} user={currentUser} />
+					)}
+					{currentForm === USERS_FORMS.DELETE && (
+						<UserDeleteForm
+							onSuccess={onSuccess}
+							user={currentUser}
+							onCancel={setFiltersForm}
+						/>
 					)}
 				</UsersFormLayout>
 			)}

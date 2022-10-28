@@ -52,6 +52,17 @@ export const updateUser = async user => {
 	}
 };
 
+export const deleteUser = async id => {
+	try {
+		const res = await fetch(`http://localhost:4000/users/${id}`, {
+			method: 'DELETE'
+		});
+		return res.ok;
+	} catch {
+		return false;
+	}
+};
+
 export const findUserByUsername = async (username, signal) => {
 	let users;
 	try {

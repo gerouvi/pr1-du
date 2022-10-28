@@ -9,7 +9,7 @@ import InputTextAsync from '../forms/InputTextAsync';
 import Select from '../forms/Select';
 import style from './UserEditForm.module.css';
 
-const UseEditForm = ({ onSuccess, user }) => {
+const UserEditForm = ({ onSuccess, user }) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const {
@@ -100,4 +100,4 @@ const handleSubmit = async (e, user, setIsSubmitting, onSuccess) => {
 	else setIsSubmitting(false);
 };
 
-export default UseEditForm;
+export default UserEditForm;

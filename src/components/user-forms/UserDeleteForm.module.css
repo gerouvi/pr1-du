@@ -1,0 +1,21 @@
+
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.text {
+    margin-bottom: 2rem;
+}
+
+.input{
+    width: 45%;
+}
+
+.active{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+

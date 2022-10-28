@@ -1,13 +1,6 @@
 {
   "users": [
     {
-      "id": "c3ce080a-88ee-4b1c-b88e-e7070b1365e6",
-      "username": "bfarge0",
-      "name": "Bird F",
-      "active": false,
-      "role": "teacher"
-    },
-    {
       "id": "1a751902-cad9-420b-bffa-a664b2616bf7",
       "username": "arizzi1",
       "name": "Alikee Rizzi",
