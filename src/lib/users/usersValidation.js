@@ -5,7 +5,7 @@ const REGEX = {
 };
 
 export const validateUsername = username => {
-	if (!REGEX.USERNAME.test(username)) return 'Sólo minúsculas o numeros';
+	if (!REGEX.USERNAME.test(username)) return 'Sólo minúsculas o números';
 	if (REGEX.START_WITH.test(username)) return 'No puede empezar por un número';
 	if (username.length < 6 || username.length > 15)
 		return 'Longitud entre 6 y 15';

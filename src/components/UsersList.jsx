@@ -15,9 +15,17 @@ import {
 	sortUsers
 } from '../lib/users/filterUsers';
 import UsersFormLayout from './user-forms/UsersFormLayout';
+import UseEditForm from './user-forms/UserEditForm';
 
 const UsersList = () => {
-	const { currentForm, setCreateForm, setFiltersForm } = useForm();
+	const {
+		currentForm,
+		currentUser,
+		setCreateForm,
+		setFiltersForm,
+		setEditForm,
+		setDeleteForm
+	} = useForm();
 
 	const {
 		filters,
@@ -54,7 +62,12 @@ const UsersList = () => {
 				/>
 			) : (
 				<UsersFormLayout onClose={setFiltersForm}>
-					<UserCreateForm onSuccess={onSuccess} />
+					{currentForm === USERS_FORMS.CREATE && (
+						<UserCreateForm onSuccess={onSuccess} />
+					)}
+					{currentForm === USERS_FORMS.EDIT && (
+						<UseEditForm onSuccess={onSuccess} user={currentUser} />
+					)}
 				</UsersFormLayout>
 			)}
 
@@ -62,6 +75,8 @@ const UsersList = () => {
 				users={paginatedUsers}
 				usersError={usersError}
 				usersLoading={usersLoading}
+				setEditForm={setEditForm}
+				setDeleteForm={setDeleteForm}
 			/>
 			<UsersListPagination
 				page={filters.page}
@@ -75,21 +90,28 @@ const UsersList = () => {
 };
 
 const useForm = () => {
-	const [currentForm, setCurrentForm] = useState(USERS_FORMS.FILTERS);
+	const [currentForm, setCurrentForm] = useState({ form: USERS_FORMS.FILTERS });
 
-	const setFiltersForm = () => setCurrentForm(USERS_FORMS.FILTERS);
-	const setCreateForm = () => setCurrentForm(USERS_FORMS.CREATE);
-	const setEditForm = () => setCurrentForm(USERS_FORMS.EDIT);
-	const setDeleteForm = () => setCurrentForm(USERS_FORMS.DELETE);
+	const setFiltersForm = () => setCurrentForm({ form: USERS_FORMS.FILTERS });
+	const setCreateForm = () => setCurrentForm({ form: USERS_FORMS.CREATE });
+	const setEditForm = user =>
+		setCurrentForm({
+			form: USERS_FORMS.EDIT,
+			user
+		});
+	const setDeleteForm = user =>
+		setCurrentForm({ form: USERS_FORMS.DELETE, user });
 
 	return {
-		currentForm,
+		currentForm: currentForm.form,
+		currentUser: currentForm.user,
 		setFiltersForm,
 		setCreateForm,
 		setEditForm,
 		setDeleteForm
 	};
 };
+
 const getUsersToDisplay = (
 	users,
 	{ onlyActives, search, sortBy, page, itemsPerPage }

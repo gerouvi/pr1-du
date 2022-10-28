@@ -1,9 +1,20 @@
+import IconButton from './buttons/IconButton';
+import PencilIcon from './icons/PencilIcon';
+import TrashIcon from './icons/TrashIcon';
 import UserDisplay from './UserDisplay';
 import UserRole from './UserRole';
 import style from './UserRow.module.css';
 import UserStatus from './UserStatus';
 
-const UserRow = ({ username, name, active, role }) => (
+const UserRow = ({
+	id,
+	username,
+	name,
+	active,
+	role,
+	setEditForm,
+	setDeleteForm
+}) => (
 	<div className={style.wrapper}>
 		<div className={style.name}>
 			<UserDisplay username={username} name={name} />
@@ -13,6 +24,17 @@ const UserRow = ({ username, name, active, role }) => (
 		</div>
 		<div className={style.role}>
 			<UserRole role={role} />
+		</div>
+		<div className={style.action}>
+			<IconButton
+				icon={PencilIcon}
+				onClick={() => setEditForm({ id, name, username, active, role })}
+			/>
+			<IconButton
+				icon={TrashIcon}
+				kind='red'
+				onClick={() => setDeleteForm({ name, id })}
+			/>
 		</div>
 	</div>
 );
