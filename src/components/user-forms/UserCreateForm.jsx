@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { USERS_ROLES } from '../../constants/usersRoles';
 import { createUser } from '../../lib/api/usersApi';
+import { UsersFormContext } from '../../lib/contexts/UsersFormContext';
 import { useCreateForm } from '../../lib/hooks/useCreateForm';
 import Button from '../buttons/Button';
 import InputCheckbox from '../forms/InputCheckbox';
@@ -9,7 +10,8 @@ import InputTextAsync from '../forms/InputTextAsync';
 import Select from '../forms/Select';
 import style from './UserCreateForm.module.css';
 
-const UserCreateForm = ({ onSuccess }) => {
+const UserCreateForm = () => {
+	const { onSuccess } = useContext(UsersFormContext);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const { name, username, setName, setUsername, isFormValid } = useCreateForm();
