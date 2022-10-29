@@ -1,44 +1,39 @@
 import { useEffect, useState } from 'react';
 import { findAllUsers } from '../api/usersApi';
 
-const INITIAL_VALUES = {
-	data: [],
-	error: false,
-	loading: true
-};
+export const useUsers = filters => {
+	const [users, setUsers] = useState({
+		data: [],
+		count: 0,
+		error: false,
+		loading: true
+	});
 
-export const useUsers = () => {
-	const [users, setUsers] = useState(INITIAL_VALUES);
-
-	const setData = newData =>
-		setUsers({ data: newData, loading: false, error: false });
+	const setData = (newData, newCount) =>
+		setUsers({ data: newData, count: newCount, loading: false, error: false });
 
 	const setError = () => setUsers({ data: [], error: true, loading: false });
 
-	const reloadUsers = () => setUsers(INITIAL_VALUES);
-
 	useEffect(() => {
-		if (!users.loading) return;
-
 		const controller = new AbortController();
 
-		loadUsers(setData, setError, controller.signal);
+		loadUsers(setData, setError, controller.signal, filters);
 
 		return () => controller.abort();
-	}, [users.loading]);
+	}, [filters]);
 
 	return {
 		users: users.data,
+		usersCount: users.count,
 		usersError: users.error,
-		usersLoading: users.loading,
-		reloadUsers
+		usersLoading: users.loading
 	};
 };
 
-const loadUsers = async (setData, setError, signal) => {
-	const { users, aborted } = await findAllUsers(signal);
+const loadUsers = async (setData, setError, signal, filters) => {
+	const { users, count, aborted } = await findAllUsers(signal, filters);
 
 	if (aborted) return;
-	if (users) setData(users);
+	if (users) setData(users, count);
 	else setError();
 };

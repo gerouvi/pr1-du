@@ -7,7 +7,7 @@ const UsersListPagination = ({
 	setPage,
 	itemsPerPage,
 	setItemsPerPage,
-	totalPages
+	totalUsers
 }) => (
 	<div className={style.wrapper}>
 		<div className={style.itemsPerPage}>
@@ -22,7 +22,11 @@ const UsersListPagination = ({
 			<p>Elementos por página</p>
 		</div>
 
-		<PageSelector page={page} setPage={setPage} totalPages={totalPages} />
+		<PageSelector
+			page={page}
+			setPage={setPage}
+			totalPages={Math.ceil(totalUsers / itemsPerPage)}
+		/>
 	</div>
 );
 
