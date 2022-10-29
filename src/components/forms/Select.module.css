@@ -16,6 +16,7 @@
 
 .select:focus{
     box-shadow: var(--shadow-md);
+    outline: none;
 }
 
 .arrow{

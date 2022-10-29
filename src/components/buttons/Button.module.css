@@ -10,6 +10,7 @@
 
 .button:focus{
     box-shadow: var(--shadow-md);
+    outline: none;
 }
 
 .button:disabled{
