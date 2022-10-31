@@ -11,20 +11,20 @@ import { useState } from 'react';
 
 const UsersList = () => {
 	const [showRowsFormat, setShowRowsFormat] = useState(true);
-	const { filters, filtersSetters, paginationSetters, resetFilters } =
-		useFilters();
+
+	const { filters, dispatchFilters } = useFilters();
 
 	const { users, totalUsers, usersError, usersLoading } = useUsers(filters);
 
 	return (
 		<div className={style.wrapper}>
 			<h1 className={style.title}>Listado de usuarios</h1>
-			<UsersFormsProvider resetFilters={resetFilters}>
+			<UsersFormsProvider dispatchFilters={dispatchFilters}>
 				<UsersListFilters
 					search={filters.search}
 					onlyActives={filters.onlyActives}
 					sortBy={filters.sortBy}
-					{...filtersSetters}
+					dispatchFilters={dispatchFilters}
 				/>
 				<UsersFormLayout />
 				<UsersListViewSelector
@@ -42,8 +42,8 @@ const UsersList = () => {
 			<UsersListPagination
 				page={filters.page}
 				itemsPerPage={filters.itemsPerPage}
-				{...paginationSetters}
 				totalUsers={totalUsers}
+				dispatchFilters={dispatchFilters}
 			/>
 		</div>
 	);

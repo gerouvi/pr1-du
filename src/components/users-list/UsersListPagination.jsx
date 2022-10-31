@@ -7,14 +7,19 @@ const UsersListPagination = ({
 	page,
 	setPage,
 	itemsPerPage,
-	setItemsPerPage,
-	totalUsers
+	totalUsers,
+	dispatchFilters
 }) => (
 	<div className={style.wrapper}>
 		<div className={style.itemsPerPage}>
 			<Select
 				value={itemsPerPage}
-				onChange={e => setItemsPerPage(Number(e.target.value))}
+				onChange={e =>
+					dispatchFilters({
+						type: 'items_per_page_changed',
+						value: Number(e.target.value)
+					})
+				}
 			>
 				{PAGINATION.ITEMS_PER_PAGE_VALUES.map(value => (
 					<option key={value} value={value}>
@@ -27,7 +32,7 @@ const UsersListPagination = ({
 
 		<PageSelector
 			page={page}
-			setPage={setPage}
+			dispatchFilters={dispatchFilters}
 			totalPages={Math.ceil(totalUsers / itemsPerPage)}
 		/>
 	</div>

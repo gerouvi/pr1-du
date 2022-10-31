@@ -1,12 +1,12 @@
 import { UsersFormContext } from '../../lib/contexts/UsersFormContext';
 import useSelectedForm from '../../lib/hooks/useSelectedForm';
 
-const UsersFormsProvider = ({ resetFilters, children }) => {
+const UsersFormsProvider = ({ dispatchFilters, children }) => {
 	const { setFiltersForm, ...restSelectedForm } = useSelectedForm();
 
 	const onSuccess = () => {
 		setFiltersForm();
-		resetFilters();
+		dispatchFilters({ type: 'reset' });
 	};
 
 	return (
