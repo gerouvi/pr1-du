@@ -7,11 +7,12 @@ import UsersFormsProvider from '../providers/UsersFormProvider';
 import UsersListPagination from './UsersListPagination';
 import UsersListViewSelector from './UsersListViewSelector';
 import { useReducer, useState } from 'react';
-import { FILTERS_ACTIONS } from '../../constants/filtersActions';
+
 import {
 	filtersReducer,
 	FILTERS_INITIAL_USERS
 } from '../../lib/reducers/filtersReducer';
+import { reset } from '../../lib/actions/filtersActions';
 
 const UsersList = () => {
 	const [showRowsFormat, setShowRowsFormat] = useState(true);
@@ -26,9 +27,7 @@ const UsersList = () => {
 	return (
 		<div className={style.wrapper}>
 			<h1 className={style.title}>Listado de usuarios</h1>
-			<UsersFormsProvider
-				resetFilters={() => dispatchFilters({ type: FILTERS_ACTIONS.RESET })}
-			>
+			<UsersFormsProvider resetFilters={() => dispatchFilters(reset())}>
 				<UsersListFilters
 					search={filters.search}
 					onlyActives={filters.onlyActives}
