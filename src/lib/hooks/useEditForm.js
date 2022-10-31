@@ -1,16 +1,23 @@
 import { useEffect, useReducer } from 'react';
+import { EDIT_FORM_ACTIONS } from '../../constants/editFormActions';
 import { findUserByUsername } from '../api/usersApi';
-import { validateName, validateUsername } from '../users/usersValidation';
+import {
+	editFormReducer,
+	getEditFormInitialState
+} from '../reducers/editFormReducer';
 
 export const useEditForm = user => {
 	const [formValues, dispatchFormValues] = useReducer(
-		formValuesReducer,
+		editFormReducer,
 		user,
-		getInitialValues
+		getEditFormInitialState
 	);
 
 	useEffect(() => {
-		dispatchFormValues({ type: 'replace', value: getInitialValues(user) });
+		dispatchFormValues({
+			type: 'replace',
+			value: getEditFormInitialState(user)
+		});
 	}, [user]);
 
 	useEffect(() => {
@@ -45,67 +52,7 @@ export const useEditForm = user => {
 		isFormValid
 	};
 };
-const getInitialValues = user => ({
-	name: {
-		value: user.name,
-		error: undefined
-	},
-	username: {
-		value: user.username,
-		loading: false,
-		error: undefined
-	},
-	role: user.role,
-	active: user.active
-});
 
-const formValuesReducer = (state, action) => {
-	switch (action.type) {
-		case 'name_changed': {
-			const error = validateName(action.value);
-			return {
-				...state,
-				name: { value: action.value, error }
-			};
-		}
-		case 'username_changed': {
-			const error = validateUsername(action.value);
-			const isInitialValue = action.value === action.currentUsername;
-
-			return {
-				...state,
-				username: {
-					value: action.value,
-					loading: !error && !isInitialValue,
-					error
-				}
-			};
-		}
-		case 'role_changed':
-			return {
-				...state,
-				role: action.value
-			};
-		case 'active_changed':
-			return {
-				...state,
-				active: action.value
-			};
-		case 'username_error_changed':
-			return {
-				...state,
-				username: {
-					value: state.username.value,
-					error: action.value,
-					loading: false
-				}
-			};
-		case 'replace':
-			return action.value;
-		default:
-			throw new Error('Invalid action type');
-	}
-};
 const validateUserNameIsAvailable = async (
 	username,
 	dispatchFormValues,
@@ -116,11 +63,11 @@ const validateUserNameIsAvailable = async (
 	if (abort) return;
 	if (error)
 		return dispatchFormValues({
-			type: 'username_error_changed',
+			type: EDIT_FORM_ACTIONS.USERNAME_ERROR,
 			value: 'Error al validar'
 		});
 	dispatchFormValues({
-		type: 'username_error_changed',
+		type: EDIT_FORM_ACTIONS.USERNAME_ERROR,
 		value: user ? 'Ya está en uso' : undefined
 	});
 };

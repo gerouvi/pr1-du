@@ -3,7 +3,7 @@ import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import style from './PageSelector.module.css';
 
-const PageSelector = ({ page, dispatchFilters, totalPages }) => {
+const PageSelector = ({ page, setPage, totalPages }) => {
 	const isFirstPage = page === 1;
 	const isLastPage = page === totalPages || totalPages === 0;
 	return (
@@ -12,9 +12,7 @@ const PageSelector = ({ page, dispatchFilters, totalPages }) => {
 				filled
 				disabled={isFirstPage}
 				icon={ArrowLeftIcon}
-				onClick={() =>
-					dispatchFilters({ type: 'page_changed', value: page - 1 })
-				}
+				onClick={() => setPage(page - 1)}
 			/>
 			<span>
 				Página {page} de {totalPages || 1}
@@ -23,9 +21,7 @@ const PageSelector = ({ page, dispatchFilters, totalPages }) => {
 				filled
 				disabled={isLastPage}
 				icon={ArrowRightIcon}
-				onClick={() =>
-					dispatchFilters({ type: 'page_changed', value: page + 1 })
-				}
+				onClick={() => setPage(page + 1)}
 			/>
 		</div>
 	);

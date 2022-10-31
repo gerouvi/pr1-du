@@ -2,6 +2,7 @@ import style from './UsersListPagination.module.css';
 import PageSelector from '../forms/PageSelector';
 import Select from '../forms/Select';
 import { PAGINATION } from '../../constants/pagination';
+import { FILTERS_ACTIONS } from '../../constants/filtersActions';
 
 const UsersListPagination = ({
 	page,
@@ -16,7 +17,7 @@ const UsersListPagination = ({
 				value={itemsPerPage}
 				onChange={e =>
 					dispatchFilters({
-						type: 'items_per_page_changed',
+						type: FILTERS_ACTIONS.ITEMS_PER_PAGE_VALUES,
 						value: Number(e.target.value)
 					})
 				}
@@ -32,8 +33,10 @@ const UsersListPagination = ({
 
 		<PageSelector
 			page={page}
-			dispatchFilters={dispatchFilters}
 			totalPages={Math.ceil(totalUsers / itemsPerPage)}
+			setPage={newPage =>
+				dispatchFilters({ type: FILTERS_ACTIONS.PAGE, value: newPage })
+			}
 		/>
 	</div>
 );
