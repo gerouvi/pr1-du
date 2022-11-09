@@ -1,21 +1,7 @@
-
-.row{
+.form{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-
-.text {
-    margin-bottom: 2rem;
-}
-
-.input{
-    width: 45%;
-}
-
-.active{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-}
 
