@@ -7,7 +7,11 @@ import style from './UserRow.module.css';
 const UserRow = ({ user }) => (
 	<div className={style.wrapper}>
 		<div className={style.name}>
-			<UserDisplay username={user.username} name={user.name} />
+			<UserDisplay
+				username={user.username}
+				name={user.name}
+				picture={user.picture}
+			/>
 		</div>
 		<div className={style.status}>
 			<UserStatus active={user.active} />
