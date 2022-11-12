@@ -3,15 +3,22 @@ import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
 import DotsIcon from '../icons/DotsIcon';
 import PencilIcon from '../icons/PencilIcon';
+import PictureIcon from '../icons/PictureIcon';
 import TrashIcon from '../icons/TrashIcon';
 import Modal from '../modal/Modal';
 import UserDeleteForm from '../user-forms/UserDeleteForm';
 import UserEditForm from '../user-forms/UserEditForm';
+import UserPicForm from '../user-forms/UserPicForm';
 import style from './UserActions.module.css';
 
 const UserActions = ({ user }) => {
-	const { modalContent, closeModal, openEditModal, openDeleteModal } =
-		useModal(user);
+	const {
+		modalContent,
+		closeModal,
+		openEditModal,
+		openPicModal,
+		openDeleteModal
+	} = useModal(user);
 
 	const { dropdownOpened, dropdownRef, openDropdown, closeDropdown } =
 		useDropdown();
@@ -30,6 +37,15 @@ const UserActions = ({ user }) => {
 					>
 						<PencilIcon />
 						<span>Editar</span>
+					</li>
+					<li
+						onClick={() => {
+							openPicModal();
+							closeDropdown();
+						}}
+					>
+						<PictureIcon />
+						<span>Cambiar foto</span>
 					</li>
 					<li
 						onClick={() => {
@@ -56,6 +72,11 @@ const useModal = user => {
 			<UserEditForm currentUser={user} closeModal={closeModal} />
 		);
 
+	const openPicModal = () =>
+		setModalContent(
+			<UserPicForm currentUser={user} closeModal={() => setModalContent()} />
+		);
+
 	const openDeleteModal = () =>
 		setModalContent(
 			<UserDeleteForm currentUser={user} closeModal={() => setModalContent()} />
@@ -65,6 +86,7 @@ const useModal = user => {
 		modalContent,
 		closeModal,
 		openEditModal,
+		openPicModal,
 		openDeleteModal
 	};
 };
